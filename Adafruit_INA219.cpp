@@ -302,9 +302,11 @@ void Adafruit_INA219::setBusADCResolution(uint16_t resolution) {
   Adafruit_BusIO_Register config_reg =
       Adafruit_BusIO_Register(i2c_dev, INA219_REG_CONFIG, 2, MSBFIRST);
 
-  Adafruit_BusIO_RegisterBits mode_bits =
-      Adafruit_BusIO_RegisterBits(&config_reg, 4, 3);
-    _success = mode_bits.write(resolution);
+  uint32_t val = config_reg.read();
+  // Mask off area and set our new values
+  val &= ~INA219_CONFIG_BADCRES_MASK;
+  val |= resolution;
+  _success = config_reg.write(val, 2);
 }
 
 /*!
@@ -319,9 +321,11 @@ void Adafruit_INA219::setShuntADCResolution(uint16_t resolution) {
   Adafruit_BusIO_Register config_reg =
       Adafruit_BusIO_Register(i2c_dev, INA219_REG_CONFIG, 2, MSBFIRST);
 
-  Adafruit_BusIO_RegisterBits mode_bits =
-      Adafruit_BusIO_RegisterBits(&config_reg, 4, 7);
-    _success = mode_bits.write(resolution);
+  uint32_t val = config_reg.read();
+  // Mask off area and set our new values
+  val &= ~INA219_CONFIG_SADCRES_MASK;
+  val |= resolution;
+  _success = config_reg.write(val, 2);
 }
 
 /*!
