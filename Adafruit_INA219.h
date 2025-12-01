@@ -174,6 +174,8 @@ public:
   float getCurrent_mA();
   float getPower_mW();
   void powerSave(bool on);
+  void setBusADCResolution(uint16_t resolution) 
+  void setShuntADCResolution(uint16_t resolution) 
   bool success();
 
 private:

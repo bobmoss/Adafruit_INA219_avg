@@ -291,6 +291,40 @@ void Adafruit_INA219::powerSave(bool on) {
 }
 
 /*!
+ *  @brief  Set Bus ADC resolution and averaging options
+ *  @param  resolution
+ *          resolution option enum
+ */
+void Adafruit_INA219::setBusADCResolution(uint16_t resolution) {
+  // See the INA219_CONFIG_BADCRES enums for the various options
+  // The default set by setCalibration functions is NA219_CONFIG_BADCRES_12BIT 
+  
+  Adafruit_BusIO_Register config_reg =
+      Adafruit_BusIO_Register(i2c_dev, INA219_REG_CONFIG, 2, MSBFIRST);
+
+  Adafruit_BusIO_RegisterBits mode_bits =
+      Adafruit_BusIO_RegisterBits(&config_reg, 4, 3);
+    _success = mode_bits.write(resolution);
+}
+
+/*!
+ *  @brief  Set Shunt ADC resolution and averaging options
+ *  @param  resolution
+ *          resolution option enum
+ */
+void Adafruit_INA219::setShuntADCResolution(uint16_t resolution) {
+  // See the INA219_CONFIG_SADCRES enums for the various options
+  // The default set by setCalibration functions is INA219_CONFIG_SADCRES_12BIT_1S_532US 
+  
+  Adafruit_BusIO_Register config_reg =
+      Adafruit_BusIO_Register(i2c_dev, INA219_REG_CONFIG, 2, MSBFIRST);
+
+  Adafruit_BusIO_RegisterBits mode_bits =
+      Adafruit_BusIO_RegisterBits(&config_reg, 4, 7);
+    _success = mode_bits.write(resolution);
+}
+
+/*!
  *  @brief  Configures to INA219 to be able to measure up to 32V and 1A
  *          of current.  Each unit of current corresponds to 40uA, and each
  *          unit of power corresponds to 800uW. Counter overflow occurs at
