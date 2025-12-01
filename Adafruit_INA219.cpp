@@ -297,7 +297,7 @@ void Adafruit_INA219::powerSave(bool on) {
  */
 void Adafruit_INA219::setBusADCResolution(uint16_t resolution) {
   // See the INA219_CONFIG_BADCRES enums for the various options
-  // The default set by setCalibration functions is NA219_CONFIG_BADCRES_12BIT 
+  // The default set by setCalibration functions is NA219_CONFIG_BADCRES_12BIT
   
   Adafruit_BusIO_Register config_reg =
       Adafruit_BusIO_Register(i2c_dev, INA219_REG_CONFIG, 2, MSBFIRST);
@@ -316,7 +316,8 @@ void Adafruit_INA219::setBusADCResolution(uint16_t resolution) {
  */
 void Adafruit_INA219::setShuntADCResolution(uint16_t resolution) {
   // See the INA219_CONFIG_SADCRES enums for the various options
-  // The default set by setCalibration functions is INA219_CONFIG_SADCRES_12BIT_1S_532US 
+  // The default set by setCalibration functions is
+  // INA219_CONFIG_SADCRES_12BIT_1S_532US
   
   Adafruit_BusIO_Register config_reg =
       Adafruit_BusIO_Register(i2c_dev, INA219_REG_CONFIG, 2, MSBFIRST);
